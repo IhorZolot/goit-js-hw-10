@@ -37,7 +37,7 @@ refs.selectEl.addEventListener('change', event => {
     .then(cat => renderCat(cat))
     .catch(error => {
       console.error(error);
-      showError();
+      refs.errorElement.classList.remove('visually-hidden');
     });
 });
 
@@ -55,6 +55,4 @@ function renderCat(cat) {
 
   refs.catBox.innerHTML = markup;
 }
-function showError() {
-  refs.errorElement.classList.remove('visually-hidden');
-}
+

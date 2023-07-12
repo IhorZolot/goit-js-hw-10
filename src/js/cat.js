@@ -18,13 +18,10 @@ getCatsList()
     console.error(error);
 
     showError();
-  })
-  .finally(() => {
-    refs.loaderElement.classList.add('visually-hidden');
   });
 
 function renderCatSelect(cats) {
-  refs.loaderElement.classList.remove('visually-hidden');
+  refs.loaderElement.classList.add('visually-hidden');
   const markup = cats
     .map(cat => {
       return `<option value="${cat.id}">${cat.name}</option>`;
@@ -33,6 +30,7 @@ function renderCatSelect(cats) {
   refs.selectEl.insertAdjacentHTML('beforeend', markup);
 }
 refs.selectEl.addEventListener('change', event => {
+  refs.loaderElement.classList.remove('visually-hidden');
   fetchCatByBreed(event.target.value)
     .then(cat => renderCat(cat))
     .catch(error => {
@@ -42,6 +40,7 @@ refs.selectEl.addEventListener('change', event => {
 });
 
 function renderCat(cat) {
+  refs.loaderElement.classList.add('visually-hidden');
   console.log(cat);
   const catInfo = cat.breeds[0];
   const markup = `<div class="picture-container">
